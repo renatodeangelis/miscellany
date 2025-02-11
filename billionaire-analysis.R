@@ -56,17 +56,15 @@ wall_street <- c(
 
 billionaires |>
     slice(1:100) |>
-    mutate(industry = case_when(
-        name %in% silicon_valley ~ "Silicon Valley",
-        name %in% wall_street ~ "Wall Street",
-        TRUE ~ "Other")) |>
+    mutate(industry = case_when(name %in% silicon_valley ~ "Silicon Valley",
+                                name %in% wall_street ~ "Wall Street",
+                                TRUE ~ "Other")) |>
     ggplot(aes(x = current_worth, fill = industry)) +
-    geom_dotplot(binwidth = 10, color = "black", stackdir = "up", dotsize = 1) +
+    geom_histogram(binwidth = 10, alpha = 0) +
     theme_minimal() +
     theme(panel.grid = element_line()) +
     labs(x = "Net Worth (Billions USD)",
-        y = "Count",
         title = "Distribution of the 100 Richest U.S. Billionaires",
         caption = "Source: Forbes Real-Time Billionaires List") +
-    scale_x_continuous(breaks = c(seq(0, 10, 10), seq(50, 400, 50))) +
-    scale_fill_paletteer_d("nbapalettes::blazers")
+    scale_x_continuous(breaks = c(seq(0, 10, 10), seq(50, 400, 50))) #+
+    scale_fill_paletteer_d("nbapalettes::heat_vice", direction = -1)
