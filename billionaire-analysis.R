@@ -1,5 +1,4 @@
 library(tidyverse)
-library(paletteer)
 
 billionaires = read_csv("billionaires.csv") |>
     select(-rank, -image, -previous_worth) |>
@@ -66,14 +65,28 @@ billionaires_plot = billionaires |>
                                 TRUE ~ "Other")) |>
     bind_rows(families)
 
+custom_colors = c("#228B22", "#D3D3D3", "#FFD700", "#FF0000", "#1E90FF", "#000000")
+
 billionaires_plot |>
-    ggplot(aes(x = current_worth, fill = industry)) +
-    geom_dotplot(binwidth = 6, dotsize = 1, method = "histodot",
-                 stackgroups = TRUE) +
-    labs(x = "Net Worth (Billions USD)", y = "Count",
-        title = "Distribution of the 100 Richest U.S. Billionaires",
-        caption = "Source: Forbes Real-Time Billionaires List") +
-    theme(panel.grid = element_line()) +
-    theme_minimal() +
-    scale_x_continuous(breaks = c(10, 50, 100, 200, 300, 400),
-                       labels = c("10", "50", "100", "200", "300", "400"))
+  ggplot(aes(x = current_worth, fill = industry)) +
+  geom_dotplot(binwidth = 6, dotsize = 1, method = "histodot",
+               stackgroups = TRUE) +
+  labs(x = "Net Worth (Billions USD)", y = "Count",
+       title = "Distribution of the 100 Richest U.S. Billionaires",
+       caption = "Source: Forbes Real-Time Billionaires List") +
+  theme_minimal() +
+  scale_x_continuous(breaks = c(10, 50, 100, 200, 300, 400),
+                     labels = c("10", "50", "100", "200", "300", "400")) +
+  scale_y_continuous(labels = NULL) +
+  scale_fill_manual(values = custom_colors,
+                    breaks = c("Fords", "Mellons", "Rockefellers",
+                               "Silicon Valley", "Wall Street", "Other")) +
+  guides(fill = guide_legend(title = NULL)) +
+  theme(legend.position = c(0.85, 0.7))
+
+
+
+
+
+
+
