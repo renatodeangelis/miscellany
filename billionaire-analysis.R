@@ -54,19 +54,28 @@ wall_street <- c(
   "Arthur Dantchik"      # Susquehanna International Group (Trading, Investments)
 )
 
+families = tibble(id = c("mellons", "rockefellers", "fords"),
+                 name = c("Mellons", "Rockefellers", "Fords"),
+                 industry = c("Dynasty", "Dynasty", "Dynasty"),
+                 current_worth = c(14.1, 10.3, 2))
+
 billionaires |>
     slice(1:100) |>
     mutate(industry = case_when(name %in% silicon_valley ~ "Silicon Valley",
                                 name %in% wall_street ~ "Wall Street",
                                 TRUE ~ "Other")) |>
+    bind_rows(families) |>
     ggplot(aes(x = current_worth, fill = industry)) +
     geom_dotplot(binwidth = 6, dotsize = 1, method = "histodot",
                  stackgroups = TRUE) +
-    theme(panel.grid = element_line()) +
+    theme(panel.grid = element_line(),
+          axis.ticks.y = element_blank(),
+          axis.title.y = element_blank()) +
+    theme_minimal() +
     labs(x = "Net Worth (Billions USD)", y = "Count",
         title = "Distribution of the 100 Richest U.S. Billionaires",
         caption = "Source: Forbes Real-Time Billionaires List",
         guide = guide_legend(reverse = TRUE)) +
-    scale_fill_paletteer_d("nbapalettes::heat_vice", direction = -1) +
     scale_x_continuous(breaks = c(10, 50, 100, 200, 300, 400),
-                       labels = c("10", "50", "100", "200", "300", "400"))
+                       labels = c("10", "50", "100", "200", "300", "400")) +
+    scale_fill_paletteer_d("nbapalettes::warriors_00s", direction = -1)
