@@ -60,11 +60,13 @@ billionaires |>
                                 name %in% wall_street ~ "Wall Street",
                                 TRUE ~ "Other")) |>
     ggplot(aes(x = current_worth, fill = industry)) +
-    geom_dotplot(binwidth = 6, dotsize = 1, method = "histodot", stackgroups = TRUE) +
-    theme_minimal() +
+    geom_dotplot(binwidth = 6, dotsize = 1, method = "histodot",
+                 stackgroups = TRUE) +
     theme(panel.grid = element_line()) +
     labs(x = "Net Worth (Billions USD)", y = "Count",
         title = "Distribution of the 100 Richest U.S. Billionaires",
-        caption = "Source: Forbes Real-Time Billionaires List") +
-    scale_x_continuous(breaks = c(seq(0, 10, 10), seq(50, 400, 50))) +
-    scale_fill_paletteer_d("nbapalettes::heat_vice", direction = -1)
+        caption = "Source: Forbes Real-Time Billionaires List",
+        guide = guide_legend(reverse = TRUE)) +
+    scale_fill_paletteer_d("nbapalettes::heat_vice", direction = -1) +
+    scale_x_continuous(breaks = c(10, 50, 100, 200, 300, 400),
+                       labels = c("10", "50", "100", "200", "300", "400"))
