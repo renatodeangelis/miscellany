@@ -50,7 +50,8 @@ wall_street <- c(
   "Josh Harris",         # Apollo Global Management, 76ers (Private Equity)
   "Robert F. Smith",     # Vista Equity Partners (Private Equity)
   "James Simons",        # Renaissance Technologies (Hedge Funds) *not in list but notable*
-  "Arthur Dantchik"      # Susquehanna International Group (Trading, Investments)
+  "Arthur Dantchik",     # Susquehanna International Group (Trading, Investments)
+  "George Soros"
 )
 
 families = tibble(id = c("mellons", "rockefellers", "fords"),
@@ -59,7 +60,7 @@ families = tibble(id = c("mellons", "rockefellers", "fords"),
                  current_worth = c(14.1, 10.3, 2))
 
 billionaires_plot = billionaires |>
-    slice(1:100) |>
+    slice(1:100, 179) |>
     mutate(industry = case_when(name %in% silicon_valley ~ "Silicon Valley",
                                 name %in% wall_street ~ "Wall Street",
                                 TRUE ~ "Other")) |>
