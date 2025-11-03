@@ -48,14 +48,16 @@ ggplot() +
   geom_line(data = boundaries, aes(x = x, y = y_max), color = "black") +
   geom_line(data = boundaries, aes(x = x, y = y_min), color = "black") +
   geom_line(data = data, aes(x = x, y = value, color = series), size = 1) +
-  annotate("text", x = max(x), y = y_max[n], label = expression(Y[max]), hjust = -0.1, vjust = 0) + # Position y_max label at endpoint
-  annotate("text", x = max(x), y = y_min[n], label = expression(Y[min]), hjust = -0.1, vjust = 0.7) + # Position y_min label at endpoint
-  annotate("text", x = max(x), y = y_it[n], label = expression(y[it]), color = "blue", size = 4, fontface = "italic", hjust = -0.1) + # Label y_it
-  annotate("text", x = max(x), y = y_jt[n], label = expression(y[jt]), color = "red", size = 4, fontface = "italic", hjust = -0.1) + # Label y_jt
+  annotate("text", x = max(x), y = y_min[n], label = "Y[min]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(x), y = y_max[n], label = "Y[max]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(x), y = y_it[n], label = "y[it]", parse = TRUE,
+           color = "blue", size = 4, fontface = "italic", hjust = -0.1) +
+  annotate("text", x = max(x), y = y_jt[n], label = "y[jt]", parse = TRUE,
+           color = "red", size = 4, fontface = "italic", hjust = -0.1) +
   labs(
     x = expression(Y[t]),
     y = expression(Y[t+1]),
-    title = "Growing Economy with Potential Immiseration"
+    title = "Growing Economy with Decline for the Less Advantaged"
   ) +
   scale_x_continuous(limits = c(10, n)) +
   scale_color_manual(values = c("blue", "red")) +
