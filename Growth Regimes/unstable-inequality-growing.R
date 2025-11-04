@@ -48,10 +48,12 @@ ggplot() +
   geom_line(data = boundaries, aes(x = x, y = y_max), color = "black") +
   geom_line(data = boundaries, aes(x = x, y = y_min), color = "black") +
   geom_line(data = data, aes(x = x, y = value, color = series), size = 1) +
-  annotate("text", x = max(x) * 0.95, y = max(y_max), label = expression(W[max]), hjust = 0, vjust = -0.5) +
-  annotate("text", x = max(x) * 0.95, y = max(y_min), label = expression(W[min]), hjust = 0, vjust = 2) +
-  annotate("text", x = max(x), y = y_it[n], label = expression(w[it]), color = "blue", size = 4, fontface = "italic", hjust = -0.1) + # Label y_it
-  annotate("text", x = max(x), y = y_jt[n], label = expression(w[jt]), color = "red", size = 4, fontface = "italic", hjust = -0.1) + # Label y_jt # Label y_jt
+  annotate("text", x = max(x), y = y_min[n], label = "W[min]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(x), y = y_max[n], label = "W[max]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(x), y = y_it[n], label = "w[it]", parse = TRUE,
+           color = "royalblue", size = 5, fontface = "italic", hjust = -0.1) +
+  annotate("text", x = max(x), y = y_jt[n], label = "w[jt]", parse = TRUE,
+           color = "maroon", size = 5, fontface = "italic", hjust = -0.1) +
   labs(
     x = expression(W[t]),
     y = expression(W[t+1]),
@@ -59,9 +61,9 @@ ggplot() +
   ) +
   scale_x_continuous(limits = c(0, n)) +
   scale_y_continuous(limits = c(min(y_min) - 1, max(y_max) + 1)) +
-  scale_color_manual(values = c("blue", "red")) +
+  scale_color_manual(values = c("royalblue", "maroon")) +
   coord_cartesian(clip = "off") +
-  theme_minimal() +
+  theme_minimal(base_size = 14) +
   theme(
     axis.text = element_blank(),          # Remove numerical labels on both axes
     axis.line = element_line(color = "black", size = 0.5), # Add axis lines
@@ -69,5 +71,6 @@ ggplot() +
     axis.title.y = element_text(angle = 0, hjust = 1, vjust = 1),  # Move y-axis label to the top
     panel.grid = element_blank(),         # Remove grid lines for a cleaner look
     legend.position = "none",
-    plot.margin = margin(10, 40, 10, 10)
+    plot.margin = margin(10, 40, 10, 10),
+    plot.title = element_text(size = 18)
   )

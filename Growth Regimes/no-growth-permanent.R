@@ -32,29 +32,30 @@ ggplot(data, aes(x = time, y = value, color = series)) +
   geom_line(size = 1) + 
   geom_hline(yintercept = y_min, color = "black") +
   geom_hline(yintercept = y_max, color = "black") +
-  annotate("text", x = max(data$time), y = y_min, label = "Y[min]", parse = TRUE, hjust = 0, vjust = -0.5) +
-  annotate("text", x = max(data$time), y = y_max, label = "Y[max]", parse = TRUE, hjust = 0, vjust = -0.5) +
-  annotate("text", x = max(data$time), y = y_it[n], label = "y[it]", parse = TRUE,
-           color = "blue", size = 4, fontface = "italic", hjust = -0.1) +
-  annotate("text", x = max(data$time), y = y_jt[n], label = "y[jt]", parse = TRUE,
-           color = "red", size = 4, fontface = "italic", hjust = -0.1) +
+  annotate("text", x = max(data$time), y = y_min, label = "W[min]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(data$time), y = y_max, label = "W[max]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(data$time), y = y_it[n], label = "w[it]", parse = TRUE,
+           color = "royalblue", size = 5, fontface = "italic", hjust = -0.1) +
+  annotate("text", x = max(data$time), y = y_jt[n], label = "w[jt]", parse = TRUE,
+           color = "maroon", size = 5, fontface = "italic", hjust = -0.1) +
   labs(
-    x = expression(Y[t]),
-    y = expression(Y[t+1]),
+    x = expression(W[t]),
+    y = expression(W[t+1]),
     title = "Stationary Economy with Permanent Inequality"
   ) +
   scale_y_continuous(limits = c(0, 10)) +
-  scale_color_manual(values = c("blue", "red")) +
+  scale_color_manual(values = c("royalblue", "maroon")) +
   coord_cartesian(clip = "off") +
-  theme_minimal() +
+  theme_minimal(base_size = 14) +
   theme(
     axis.text = element_blank(),          # Remove numerical labels on both axes
     axis.line = element_line(color = "black", size = 0.5), # Add axis lines
     axis.title.x = element_text(hjust = 1, vjust = 0),  # Move x-axis label to the end
-    axis.title.y = element_text(hjust = 1, vjust = 0),  # Move y-axis label to the top
+    axis.title.y = element_text(angle = 0, hjust = 1, vjust = 1),  # Move y-axis label to the top
     panel.grid = element_blank(),         # Remove grid lines for a cleaner look
     legend.position = "none",
-    plot.margin = margin(10, 40, 10, 10)
+    plot.margin = margin(10, 40, 10, 10),
+    plot.title = element_text(size = 18)
   )
 
 

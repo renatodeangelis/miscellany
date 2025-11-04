@@ -48,27 +48,28 @@ ggplot() +
   geom_line(data = boundaries, aes(x = x, y = y_max), color = "black") +
   geom_line(data = boundaries, aes(x = x, y = y_min), color = "black") +
   geom_line(data = data, aes(x = x, y = value, color = series), size = 1) +
-  annotate("text", x = max(x), y = y_min[n], label = "Y[min]", parse = TRUE, hjust = 0, vjust = -0.5) +
-  annotate("text", x = max(x), y = y_max[n], label = "Y[max]", parse = TRUE, hjust = 0, vjust = -0.5) +
-  annotate("text", x = max(x), y = y_it[n], label = "y[it]", parse = TRUE,
-           color = "blue", size = 4, fontface = "italic", hjust = -0.1) +
-  annotate("text", x = max(x), y = y_jt[n], label = "y[jt]", parse = TRUE,
-           color = "red", size = 4, fontface = "italic", hjust = -0.1) +
+  annotate("text", x = max(x), y = y_min[n], label = "W[min]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(x), y = y_max[n], label = "W[max]", parse = TRUE, hjust = 0, vjust = -0.5) +
+  annotate("text", x = max(x), y = y_it[n], label = "w[it]", parse = TRUE,
+           color = "royalblue", size = 5, fontface = "italic", hjust = -0.1) +
+  annotate("text", x = max(x), y = y_jt[n], label = "w[jt]", parse = TRUE,
+           color = "maroon", size = 5, fontface = "italic", hjust = -0.1) +
   labs(
-    x = expression(Y[t]),
-    y = expression(Y[t+1]),
+    x = expression(W[t]),
+    y = expression(W[t+1]),
     title = "Growing Economy with Decline for the Less Advantaged"
   ) +
   scale_x_continuous(limits = c(10, n)) +
-  scale_color_manual(values = c("blue", "red")) +
+  scale_color_manual(values = c("royalblue", "maroon")) +
   coord_cartesian(clip = "off") +
-  theme_minimal() +
+  theme_minimal(base_size = 14) +
   theme(
     axis.text = element_blank(),          # Remove numerical labels on both axes
     axis.line = element_line(color = "black", size = 0.5), # Add axis lines
     axis.title.x = element_text(hjust = 1, vjust = 0),  # Move x-axis label to the end
-    axis.title.y = element_text(hjust = 1, vjust = 0),  # Move y-axis label to the top
+    axis.title.y = element_text(angle = 0, hjust = 1, vjust = 1),  # Move y-axis label to the top
     panel.grid = element_blank(),         # Remove grid lines for a cleaner look
     legend.position = "none",
-    plot.margin = margin(10, 40, 10, 10)
+    plot.margin = margin(10, 40, 10, 10),
+    plot.title = element_text(size = 18)
   )
